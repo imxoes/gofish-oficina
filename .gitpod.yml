@@ -1,0 +1,15 @@
+tasks:
+  - name: Setup e Configuração
+    init: |
+      echo "--- INICIANDO SETUP DA OFICINA (Isso acontece só uma vez e pode levar 10-15 minutos) ---"
+      sh -c "$(curl -sSfL https://release.anza.xyz/stable/install)"
+      curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+      source "$HOME/.cargo/env"
+      sudo apt-get update && sudo apt-get install -y libudev-dev pkg-config
+      cargo install anchor-cli --locked
+      echo "--- SETUP CONCLUÍDO. Otimizando para o próximo início... ---"
+      /home/gitpod/.local/share/solana/install/active_release/bin/solana --version
+      /home/gitpod/.cargo/bin/anchor --version
+    command: |
+      export PATH="/home/gitpod/.local/share/solana/install/active_release/bin:$HOME/.cargo/bin:$PATH"
+      echo "--- OFICINA PRONTA. BEM-VINDO DE VOLTA! ---"
